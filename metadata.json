@@ -1,0 +1,6 @@
+{
+  "name": "OscarPx Backup & Restore",
+  "description": "Plugin completo de WordPress para copias de seguridad y restauración por lotes AJAX con exclusión dinámica de carpetas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
