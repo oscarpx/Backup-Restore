@@ -52,13 +52,13 @@ export const SIMULATED_SITE_FILES: SimulatedSiteFile[] = [
   { path: 'wp-content/backups-dup-lite/installer.php', sizeBytes: 412000, category: 'backup' },
   { path: 'wp-content/oscarpx-backups/.htaccess', sizeBytes: 164, category: 'backup' },
   { path: 'wp-content/oscarpx-backups/index.php', sizeBytes: 32, category: 'backup' },
-  { path: 'wp-content/oscarpx-backups/oscarpx-backup-20261110-091500.zip', sizeBytes: 11840000, category: 'backup' },
+  { path: 'wp-content/oscarpx-backups/mi-sitio-completo_2026-11-10_09-15-00.zip', sizeBytes: 11840000, category: 'backup' },
   { path: 'wp-content/debug.log', sizeBytes: 5120000, category: 'log' },
 ];
 
 export const INITIAL_BACKUPS: BackupArchiveItem[] = [
   {
-    filename: 'oscarpx-backup-20261110-091500.zip',
+    filename: 'mi-sitio-completo_2026-11-10_09-15-00.zip',
     sizeLabel: '11.29 MB',
     sizeBytes: 11840000,
     createdAt: '2026-11-10 09:15:00',
@@ -67,13 +67,13 @@ export const INITIAL_BACKUPS: BackupArchiveItem[] = [
     skippedCount: 11,
   },
   {
-    filename: 'oscarpx-backup-20261102-184210.zip',
-    sizeLabel: '10.84 MB',
-    sizeBytes: 11366400,
+    filename: 'mi-sitio-solo-bd_2026-11-02_18-42-10.zip',
+    sizeLabel: '4.12 MB',
+    sizeBytes: 4320133,
     createdAt: '2026-11-02 18:42:10',
     tablesCount: 9,
-    filesCount: 1392,
-    skippedCount: 11,
+    filesCount: 1,
+    skippedCount: 0,
   },
 ];
 

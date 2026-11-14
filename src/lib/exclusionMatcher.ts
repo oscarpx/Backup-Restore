@@ -89,3 +89,36 @@ export function sanitizeBackupFilename(filename: string): string | null {
   }
   return cleaned;
 }
+
+export type BackupType = 'completo' | 'solo-bd';
+
+/**
+ * Mirrors WordPress sanitize_title() for site names (removes accents/tildes, spaces, special chars).
+ */
+export function sanitizeSiteTitle(siteName: string): string {
+  const ascii = siteName
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  return ascii || 'sitio-wp';
+}
+
+/**
+ * Builds the strict chronological ZIP filename:
+ * {nombre-sitio-sanitizado}-{tipo-backup}_{Y-m-d_H-i-s}.zip
+ */
+export function buildDynamicBackupFilename(
+  siteName: string,
+  backupType: BackupType,
+  date: Date = new Date(),
+): string {
+  const siteSlug = sanitizeSiteTitle(siteName);
+  const cleanType: BackupType = backupType === 'solo-bd' ? 'solo-bd' : 'completo';
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const formattedDate = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}_${pad(date.getHours())}-${pad(date.getMinutes())}-${pad(date.getSeconds())}`;
+  return `${siteSlug}-${cleanType}_${formattedDate}.zip`;
+}
+

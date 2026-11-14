@@ -22,21 +22,21 @@ export function ArchitectureOverview() {
     },
     {
       icon: RefreshCw,
-      title: '04. Motor de Restauración en Streaming',
+      title: '04. Sistema Anticaídas (Restauración Segura)',
       file: 'includes/class-oscarpx-restore-engine.php',
-      body: 'Verifica la ausencia de Zip Slip, extrae por lotes preservando wp-content/oscarpx-backups/ y lee database-backup.sql con fopen() + fgets() respetando literales entrecomillados para ejecutar DROP e INSERT vía $wpdb.',
+      body: 'Cumple 3 reglas inquebrantables: (1) bloquea explícitamente la sobrescritura de wp-config.php y .htaccess al extraer con ZipArchive; (2) activa .maintenance (wp_maintenance()) antes del primer lote AJAX y solo lo elimina tras concluir Search & Replace; (3) inyecta SQL Hot Swap vía $wpdb con DROP TABLE IF EXISTS / CREATE / INSERT en fragmentos de máx. 2 MB.',
     },
     {
       icon: Lock,
-      title: '05. Seguridad y Endurecimiento de Directorio',
-      file: 'includes/class-oscarpx-security.php',
-      body: 'Protege cada acción AJAX con check_ajax_referer() y current_user_can("manage_options"). Crea automáticamente .htaccess (Deny from all + Require all denied) e index.php vacío, y valida nombres .zip con sanitize_file_name() y realpath().',
+      title: '05. Gestor, Nomenclatura y Descarga Stream',
+      file: 'includes/class-oscarpx-security.php · OscarPx_Admin',
+      body: 'Genera nombres {sitio}-{tipo}_{Y-m-d_H-i-s}.zip (get_bloginfo + sanitize_title), escanea con scandir(), sube chunks File.slice() (1 MB), protege con .htaccess (Deny from all) y transmite descargas vía admin_post_download_oscarpx_backup con fread() + ob_clean()/flush() tras validar Nonce, manage_options, sanitize_file_name() y realpath().',
     },
     {
       icon: Shield,
-      title: '06. Metadatos Oficiales del Plugin',
-      file: 'oscarpx-backup-restore.php',
-      body: 'Cabecera estándar WordPress configurada con Plugin Name: OscarPx Backup & Restore, Author: OscarPx, Author URI: https://oscarpx.com y Version: 1.0.0, lista para instalar subiendo el .zip desde Plugins -> Añadir nuevo.',
+      title: '06. Ecosistema PX Tools y Metadatos',
+      file: 'oscarpx-backup-restore.php · OscarPx_Admin::register_menu_page()',
+      body: 'Verifica globalmente si el menú maestro px-tools ya existe ($admin_page_hooks / $menu); si no existe lo registra con add_menu_page("PX Tools", "manage_options", "dashicons-superhero") y apila este plugin mediante add_submenu_page("px-tools", ...). Metadatos oficiales: OscarPx Backup & Restore v1.0.0 (Author: OscarPx).',
     },
   ];
 

@@ -5,6 +5,8 @@ import {
   parseExclusionRules,
   isPathExcluded,
   sanitizeBackupFilename,
+  sanitizeSiteTitle,
+  buildDynamicBackupFilename,
 } from './exclusionMatcher';
 
 test('parseExclusionRules normalizes trailing slashes, backslashes, and removes path traversal', () => {
@@ -43,3 +45,19 @@ test('sanitizeBackupFilename blocks traversal and non-zip extensions', () => {
   assert.equal(sanitizeBackupFilename('shell.php'), null);
   assert.equal(sanitizeBackupFilename('no-extension'), null);
 });
+
+test('sanitizeSiteTitle and buildDynamicBackupFilename produce strict chronological format', () => {
+  assert.equal(sanitizeSiteTitle('Mi Sitio Café & Producción!'), 'mi-sitio-cafe-produccion');
+  assert.equal(sanitizeSiteTitle('   @@@   '), 'sitio-wp');
+
+  const fixedDate = new Date(2026, 10, 14, 11, 40, 0);
+  assert.equal(
+    buildDynamicBackupFilename('Mi Sitio', 'completo', fixedDate),
+    'mi-sitio-completo_2026-11-14_11-40-00.zip',
+  );
+  assert.equal(
+    buildDynamicBackupFilename('Tienda Óscar & Cía', 'solo-bd', fixedDate),
+    'tienda-oscar-cia-solo-bd_2026-11-14_11-40-00.zip',
+  );
+});
+
